@@ -24,3 +24,14 @@
 ### `/highest-gpa`:
 ![all-student-name-request in CLI screenshot](https://cdn.discordapp.com/attachments/1201794782402187324/1216059575023964231/image.png?ex=65ff02bb&is=65ec8dbb&hm=4773a70900ca1fc1e79d2d4c0767bb15f0cb96c30e7020b7a3e9b43456ac9ea1&)
 
+### Conclusion
+Setelah *profiling* dan *performance optimization*, saya dapati bahwa execution time dari methodnya menjadi lebih cepat. Berikut adalah screenshot dari *improvement*-nya pada JMeter:
+
+### `/all-student`:
+![all-student-request in Table screenshot](https://cdn.discordapp.com/attachments/1201794782402187324/1216082740508885012/image.png?ex=65ff184f&is=65eca34f&hm=01e04ba843fddf01c1c89d749012d630540a640902c21192c449090b8d371f2c&)
+
+### `/all-student-name`:
+![all-student-name-request in Table screenshot](https://cdn.discordapp.com/attachments/1201794782402187324/1216082885610704906/image.png?ex=65ff1871&is=65eca371&hm=c5de84b9201d22a9ae6855a05a44eae045760a1fbe4f7e84c396b470450f0779&)
+
+### `/highest-gpa`:
+![all-student-name-request in Table screenshot](https://cdn.discordapp.com/attachments/1201794782402187324/1216082992452075572/image.png?ex=65ff188b&is=65eca38b&hm=a970ba18dd9d868f6dfd4e19475584df9c2a4e4f18b9e777f725fcdf4eae8043&)
