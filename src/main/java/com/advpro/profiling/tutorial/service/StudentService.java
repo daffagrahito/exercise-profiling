@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * @author muhammad.khadafi
@@ -24,18 +26,19 @@ public class StudentService {
     private StudentCourseRepository studentCourseRepository;
 
     public List<StudentCourse> getAllStudentsWithCourses() {
-        List<Student> students = studentRepository.findAll();
-        List<StudentCourse> studentCourses = new ArrayList<>();
-        for (Student student : students) {
-            List<StudentCourse> studentCoursesByStudent = studentCourseRepository.findByStudentId(student.getId());
-            for (StudentCourse studentCourseByStudent : studentCoursesByStudent) {
-                StudentCourse studentCourse = new StudentCourse();
-                studentCourse.setStudent(student);
-                studentCourse.setCourse(studentCourseByStudent.getCourse());
-                studentCourses.add(studentCourse);
+        List<StudentCourse> studentCourses = studentCourseRepository.findAll();
+        Map<Long, List<StudentCourse>> studentCoursesByStudentId = studentCourses.stream()
+                .collect(Collectors.groupingBy(sc -> sc.getStudent().getId()));
+        List<StudentCourse> result = new ArrayList<>();
+        for (Map.Entry<Long, List<StudentCourse>> entry : studentCoursesByStudentId.entrySet()) {
+            for (StudentCourse studentCourse : entry.getValue()) {
+                StudentCourse newStudentCourse = new StudentCourse();
+                newStudentCourse.setStudent(studentCourse.getStudent());
+                newStudentCourse.setCourse(studentCourse.getCourse());
+                result.add(newStudentCourse);
             }
         }
-        return studentCourses;
+        return result;
     }
 
     public Optional<Student> findStudentWithHighestGpa() {
@@ -60,4 +63,3 @@ public class StudentService {
         return result.substring(0, result.length() - 2);
     }
 }
-
