@@ -19,11 +19,14 @@ import java.util.stream.Collectors;
 @Service
 public class StudentService {
 
-    @Autowired
-    private StudentRepository studentRepository;
+    private final StudentRepository studentRepository;
+    private final StudentCourseRepository studentCourseRepository;
 
     @Autowired
-    private StudentCourseRepository studentCourseRepository;
+    public StudentService(StudentRepository studentRepository, StudentCourseRepository studentCourseRepository) {
+        this.studentRepository = studentRepository;
+        this.studentCourseRepository = studentCourseRepository;
+    }
 
     public List<StudentCourse> getAllStudentsWithCourses() {
         List<StudentCourse> studentCourses = studentCourseRepository.findAll();
