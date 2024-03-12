@@ -7,7 +7,9 @@ import com.advpro.profiling.tutorial.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -27,7 +29,19 @@ public class StudentService {
     }
 
     public List<StudentCourse> getAllStudentsWithCourses() {
-        return studentCourseRepository.findAll();
+        List<StudentCourse> studentCourses = studentCourseRepository.findAll();
+        Map<Long, List<StudentCourse>> studentCoursesByStudentId = studentCourses.stream()
+                .collect(Collectors.groupingBy(sc -> sc.getStudent().getId()));
+        List<StudentCourse> result = new ArrayList<>();
+        for (Map.Entry<Long, List<StudentCourse>> entry : studentCoursesByStudentId.entrySet()) {
+            for (StudentCourse studentCourse : entry.getValue()) {
+                StudentCourse newStudentCourse = new StudentCourse();
+                newStudentCourse.setStudent(studentCourse.getStudent());
+                newStudentCourse.setCourse(studentCourse.getCourse());
+                result.add(newStudentCourse);
+            }
+        }
+        return result;
     }
 
     public Optional<Student> findStudentWithHighestGpa() {
